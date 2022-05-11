@@ -51,3 +51,14 @@ NOTA: cualquier duda de la importacion -> https://www.youtube.com/watch?v=jTs1nS
 
 5.- Ruta para mostrar datos de solicitudes de reservacione : http://localhost:8080/getSolicitudesReservacion
 
+
+
+      PARA IMPORTAR ARCHIVO EN POSTMAN
+      
+1.- En la barra de tareas, dar click en "FILE" y despues en "Import"
+
+2.-Seleccionar el archivo correspondiente de este repositorio que se llama "back-turismo.postman_collection.json"
+
+3.- DAr click en import
+
+
