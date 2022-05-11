@@ -1,19 +1,19 @@
 # apiTurismo
 Api dedicada al proyecto academico de la materia de Programación Móvil
 
-INICIO RÁPIDO
+                                            INICIO RÁPIDO
 
 1.- clonar el repositorio
 
 2.- abrir terminal en la carpeta raíz del proyecto y ejecutar el comando "git install"
 
-CORRER LA API
+                                            CORRER LA API
 
 1.- en la terminal ejecutar el comando "npm run dev"
 
 2.- e la temrinal se mostraran los procesos que se estan ejecutando
 
-IMPORTAR LA BASE DE DATOS EN WORKBENCH
+                                            IMPORTAR LA BASE DE DATOS EN WORKBENCH
 
 1.- Crear un nuevo host en donde dice "MYSQL connections" 
 
@@ -31,5 +31,5 @@ IMPORTAR LA BASE DE DATOS EN WORKBENCH
 
 8.-Click en "Start import"
 
-LISTO
+                                            LISTO
 
