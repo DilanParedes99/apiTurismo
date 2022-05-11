@@ -31,6 +31,8 @@ Api dedicada al proyecto academico de la materia de Programación Móvil
 
 8.-Click en "Start import"
 
+NOTA: cualquier duda de la importacion -> https://www.youtube.com/watch?v=jTs1nSwAcRM&t=174s
+
                                             LISTO
                                             
                                             
