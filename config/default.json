@@ -1,0 +1,12 @@
+{
+    "app":{
+        "port":8080,
+        "JWT_SECRET":"backend"
+    },
+    "db":{
+        "host":"127.0.0.1",
+        "db":"turismo",
+        "user":"root",
+        "password":""
+    }
+}
