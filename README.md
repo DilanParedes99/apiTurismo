@@ -32,4 +32,20 @@ Api dedicada al proyecto academico de la materia de Programación Móvil
 8.-Click en "Start import"
 
                                             LISTO
+                                            
+                                            
+                                            RUTAS PARA UTILIZAR 
+                                            
+    NOTA: el puerto depende de donde estes corriendo tu localhost del backend
+    NOTA 2: todas las rutas decuelven todos los datos de la tabla
+                                            
+1.- Ruta para LOGIN : http://localhost:8080/login
+
+2.-Ruta para mostrar datos de productos: http://localhost:8080/getProductos
+
+3.- Ruta para mostrar datos de empresas: http://localhost:8080/getEmpresas
+
+4.-Ruta para mostrar datos de reservaciones : http://localhost:8080/getReservaciones
+
+5.- Ruta para mostrar datos de solicitudes de reservacione : http://localhost:8080/getSolicitudesReservacion
 
