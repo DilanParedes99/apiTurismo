@@ -1,4 +1,6 @@
-const controler = require('./servicios/cliente')
+const controlerGet = require('./servicios/getcliente')
+const controlerPost = require('./servicios/postcliente')
+
 const jwt = require('jsonwebtoken')
 
 
@@ -32,37 +34,18 @@ module.exports.setup = (app,express) =>{
     app.get('/', (req,res) => res.status(200).json({msg:'BACKEND'}))
 
     //post 
-    app.post('/login', controler.login)
-
-    //gett
-    app.get('/getProductos', controler.getProductos)
-    app.get('/getEmpresas', controler.getEmpresas)
-    app.get('/getReservaciones', controler.getReservaciones)
-    app.get('/getSolicitudesReservacion', controler.getSolicitudesReservacion)
-    
-    
-    /* //POST
-    app.post('/login', controler.login)
-
-    app.post('/upload_file', controler.uploadFile)
-    
-    app.post('/update_products',secureapp, controler.updateProducts)
-    app.post('/deleteProducto',secureapp,controler.deleteProducto)
-    
-    app.post('/upload_user',secureapp,controler.uploadUser)
-    app.post('/add_producto',secureapp,controler.addProducto)
+    app.post('/login', controlerPost.login)
+    app.post('/newProducto',controlerPost.newProducto)
+    app.post('/editProducto',controlerPost.editProducto)
 
 
-    app.post('/update_user',secureapp, controler.updateUser)
-    app.post('/delete_user',secureapp,controler.deleteUser)
-
-    //GET
-    app.get('/getProductos',secureapp,controler.getProductos)
-    app.get('/getUsers',secureapp,controler.showUsers)
-    app.get('/getProductosPublicados',secureapp,controler.getProductosPublicados)
-    app.get('/getBitacora',secureapp,controler.getBitacora)
+    //get
+    app.get('/getProductos', controlerGet.getProductos)
+    app.get('/getEmpresas', controlerGet.getEmpresas)
+    app.get('/getReservaciones', controlerGet.getReservaciones)
+    app.get('/getSolicitudesReservacion', controlerGet.getSolicitudesReservacion)
+    app.get('/getNameEmpresas', controlerGet.getNameEmpresas)
     
-     */
 
     return app
 }
