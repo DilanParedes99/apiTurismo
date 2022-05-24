@@ -35,8 +35,12 @@ module.exports.setup = (app,express) =>{
 
     //post 
     app.post('/login', controlerPost.login)
+
     app.post('/newProducto',controlerPost.newProducto)
     app.post('/editProducto',controlerPost.editProducto)
+    app.post('/deleteProducto',controlerPost.deleteProducto)
+
+    
 
 
     //get

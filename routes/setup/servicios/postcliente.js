@@ -58,10 +58,21 @@ function editProducto(req,res){
     })
 }
 
+function deleteProducto(req,res){
+    const data = req.query
 
+    dbconn.query('DELETE FROM `productos` WHERE idProducto=?',[parseInt(data.idProducto)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos o el producto no existe'})
+    })
+}
 
 module.exports ={
     login,
     newProducto,
-    editProducto
+    editProducto,
+    deleteProducto
 }
