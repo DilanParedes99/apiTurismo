@@ -44,7 +44,7 @@ function newProducto(req,res){
     
 }
 
-//EDITAR UN PRODUCTO
+//EDITAR UN PRODUCTO POR MEDIO DE SU ID
 function editProducto(req,res){
     const data = req.query
     //console.log(data)
@@ -58,6 +58,7 @@ function editProducto(req,res){
     })
 }
 
+//>ELIMINA UN PRODUCTO POR MEDIO DE SU ID
 function deleteProducto(req,res){
     const data = req.query
 
@@ -70,9 +71,54 @@ function deleteProducto(req,res){
     })
 }
 
+//AGREGA NUEVO SERVICIO
+function newServicio(req,res){
+    const data = req.query
+    //console.log(data)
+
+    dbconn.query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exitoso'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos'})
+    })
+}
+
+//EDITA UN SERVICIO POR MEDIO DEL ID
+function editServicio(req,res){
+    const data = req.query
+    //console.log(data)
+
+    dbconn.query('UPDATE `servicios` SET `idEmpresa`=?,`estado`=?,`nombre`=?,`descripcion`=?,`costoPersona`=?,`precioPersona`=?,`fechaInicio`=?,`fechaFinal`=?,`disponibilidad`=? WHERE idServicio=?',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad, parseInt(data.idServicio)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exitoso'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos'})
+    })
+}
+
+//ELIMINAR SERVICIO POR MEDIO DEL ID
+
+function deleteServicio(req,res){
+    const data = req.query
+
+    dbconn.query('DELETE FROM `servicios` WHERE idServicio=?',[parseInt(data.idServicio)])
+    .then(rows=>{
+        console.log(rows)
+
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(500).json({'msg':'algo salio mal'})
+    })
+}
 module.exports ={
     login,
     newProducto,
     editProducto,
-    deleteProducto
+    deleteProducto,
+    newServicio,
+    editServicio,
+    deleteServicio
 }

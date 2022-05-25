@@ -2,80 +2,416 @@
 	"info": {
 		"_postman_id": "437fa113-9d3b-4754-918b-2de700ca94d1",
 		"name": "back-turismo",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15709588"
 	},
 	"item": [
 		{
-			"name": "LOGIN",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/login?contrasena=12345&correo=usuario@gmail.com",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"login"
-					],
-					"query": [
-						{
-							"key": "contrasena",
-							"value": "12345"
+			"name": "POST",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
-						{
-							"key": "correo",
-							"value": "usuario@gmail.com"
+						"url": {
+							"raw": "http://localhost:8080/login?contrasena=12345&correo=usuario@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "contrasena",
+									"value": "12345"
+								},
+								{
+									"key": "correo",
+									"value": "usuario@gmail.com"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "NUEVO PRODUCTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/newProducto?idEmpresa=4&nombre=Pulseras&descripcion=Pulsera artesanal&costo=59&precio=62&stock=12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"newProducto"
+							],
+							"query": [
+								{
+									"key": "idEmpresa",
+									"value": "4"
+								},
+								{
+									"key": "nombre",
+									"value": "Pulseras"
+								},
+								{
+									"key": "descripcion",
+									"value": "Pulsera artesanal"
+								},
+								{
+									"key": "costo",
+									"value": "59"
+								},
+								{
+									"key": "precio",
+									"value": "62"
+								},
+								{
+									"key": "stock",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR PRODUCTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/editProducto?idEmpresa=13&nombre=Monarca&descripcion=Mariposa Monarca&costo=59&precio=62&stock=12&idProducto=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"editProducto"
+							],
+							"query": [
+								{
+									"key": "idEmpresa",
+									"value": "13"
+								},
+								{
+									"key": "nombre",
+									"value": "Monarca"
+								},
+								{
+									"key": "descripcion",
+									"value": "Mariposa Monarca"
+								},
+								{
+									"key": "costo",
+									"value": "59"
+								},
+								{
+									"key": "precio",
+									"value": "62"
+								},
+								{
+									"key": "stock",
+									"value": "12"
+								},
+								{
+									"key": "idProducto",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR PRODUCTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteProducto?idProducto=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteProducto"
+							],
+							"query": [
+								{
+									"key": "idProducto",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NUEVO SERVICIO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/newServicio?idEmpresa=3&estado=disponible&nombre=Tour&descripcion=toures por morelia&costoPersona=23&precioPersona=34&fechaInicio=2022-05-24&fechaFinal=2022-05-30&disponibilidad=Disponible",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"newServicio"
+							],
+							"query": [
+								{
+									"key": "idEmpresa",
+									"value": "3"
+								},
+								{
+									"key": "estado",
+									"value": "disponible"
+								},
+								{
+									"key": "nombre",
+									"value": "Tour"
+								},
+								{
+									"key": "descripcion",
+									"value": "toures por morelia"
+								},
+								{
+									"key": "costoPersona",
+									"value": "23"
+								},
+								{
+									"key": "precioPersona",
+									"value": "34"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "2022-05-24"
+								},
+								{
+									"key": "fechaFinal",
+									"value": "2022-05-30"
+								},
+								{
+									"key": "disponibilidad",
+									"value": "Disponible"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR SERVICIO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/editServicio?idEmpresa=3&estado=disponible&nombre=Touring&descripcion=toures por morelia&costoPersona=23&precioPersona=34&fechaInicio=2022-05-24&fechaFinal=2022-05-30&disponibilidad=Disponible&idServicio=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"editServicio"
+							],
+							"query": [
+								{
+									"key": "idEmpresa",
+									"value": "3"
+								},
+								{
+									"key": "estado",
+									"value": "disponible"
+								},
+								{
+									"key": "nombre",
+									"value": "Touring"
+								},
+								{
+									"key": "descripcion",
+									"value": "toures por morelia"
+								},
+								{
+									"key": "costoPersona",
+									"value": "23"
+								},
+								{
+									"key": "precioPersona",
+									"value": "34"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "2022-05-24"
+								},
+								{
+									"key": "fechaFinal",
+									"value": "2022-05-30"
+								},
+								{
+									"key": "disponibilidad",
+									"value": "Disponible"
+								},
+								{
+									"key": "idServicio",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR SERVICIO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteServicio?idServicio=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteServicio"
+							],
+							"query": [
+								{
+									"key": "idServicio",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "OBTENER PRODUCTOS",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "OBTENER EMPRESAS",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "OBTENER RESERVACIONES",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "OBTENER SOLICITUDES DE RESERVACIONES",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "GET",
+			"item": [
+				{
+					"name": "OBTENER PRODUCTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getProductos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getProductos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER EMPRESAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getEmpresas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getEmpresas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER RESERVACIONES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getReservaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getReservaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER SOLICITUDES DE RESERVACIONES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getSolicitudesReservacion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getSolicitudesReservacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER NOMBRE DE EMPRESAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getNameEmpresas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getNameEmpresas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
