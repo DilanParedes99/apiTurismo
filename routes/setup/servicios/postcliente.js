@@ -100,7 +100,6 @@ function editServicio(req,res){
 }
 
 //ELIMINAR SERVICIO POR MEDIO DEL ID
-
 function deleteServicio(req,res){
     const data = req.query
 
@@ -113,6 +112,22 @@ function deleteServicio(req,res){
         res.status(500).json({'msg':'algo salio mal'})
     })
 }
+
+//ELIMINAR SOLICITUD POR MEDIO DEL ID
+function deleteSolicitud(req,res){
+    const data = req.query
+
+    dbconn.query('DELETE FROM `solicitudesreservacion` WHERE idSolicitud=?',[parseInt(data.idSolicitud)])
+    .then(rows=>{
+        console.log(rows)
+
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(500).json({'msg':'algo salio mal'})
+    })
+}
+
+
 module.exports ={
     login,
     newProducto,
@@ -120,5 +135,6 @@ module.exports ={
     deleteProducto,
     newServicio,
     editServicio,
-    deleteServicio
+    deleteServicio,
+    deleteSolicitud
 }
