@@ -5,7 +5,7 @@ Api dedicada al proyecto academico de la materia de Programación Móvil
 
 1.- clonar el repositorio
 
-2.- abrir terminal en la carpeta raíz del proyecto y ejecutar el comando "git install"
+2.- abrir terminal en la carpeta raíz del proyecto y ejecutar el comando "npm install"
 
                                             CORRER LA API
 
