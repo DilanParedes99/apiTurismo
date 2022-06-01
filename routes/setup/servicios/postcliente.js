@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt');
 
 //login 
 function login (req, res) {
-    const password = req.query['contrasena'];
-    const email = req.query['correo'];
+    const password = req.body['contrasena'];
+    const email = req.body['correo'];
     /* console.log("entra",password,email) */
 
     dbconn.query('select * from usuarios where correo=? and contrasena=?',[email,password])
@@ -30,7 +30,7 @@ function login (req, res) {
 
 //AGREGA UN NUEVO PRODUCTO
 function newProducto(req,res){
-    const data = req.query
+    const data = req.body
     //console.log(data,parseInt(data.precio))
 
     dbconn.query('INSERT INTO `productos`(`idEmpresa`, `nombre`, `descripcion`, `costo`, `precio`, `stock`) VALUES (?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.nombre,data.descripcion,data.costo,data.precio,data.stock])
@@ -46,7 +46,7 @@ function newProducto(req,res){
 
 //EDITAR UN PRODUCTO POR MEDIO DE SU ID
 function editProducto(req,res){
-    const data = req.query
+    const data = req.body
     //console.log(data)
     dbconn.query('UPDATE `productos` SET `idEmpresa`=?,`nombre`=?,`descripcion`=?,`costo`=?,`precio`=?,`stock`=? WHERE idProducto=?',[parseInt(data.idEmpresa),data.nombre,data.descripcion,data.costo,data.precio,data.stock,parseInt(data.idProducto)])
     .then(rows=>{
@@ -58,9 +58,9 @@ function editProducto(req,res){
     })
 }
 
-//>ELIMINA UN PRODUCTO POR MEDIO DE SU ID
+//ELIMINA UN PRODUCTO POR MEDIO DE SU ID
 function deleteProducto(req,res){
-    const data = req.query
+    const data = req.body
 
     dbconn.query('DELETE FROM `productos` WHERE idProducto=?',[parseInt(data.idProducto)])
     .then(rows=>{
@@ -73,7 +73,7 @@ function deleteProducto(req,res){
 
 //AGREGA NUEVO SERVICIO
 function newServicio(req,res){
-    const data = req.query
+    const data = req.body
     //console.log(data)
 
     dbconn.query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad])
@@ -87,7 +87,7 @@ function newServicio(req,res){
 
 //EDITA UN SERVICIO POR MEDIO DEL ID
 function editServicio(req,res){
-    const data = req.query
+    const data = req.body
     //console.log(data)
 
     dbconn.query('UPDATE `servicios` SET `idEmpresa`=?,`estado`=?,`nombre`=?,`descripcion`=?,`costoPersona`=?,`precioPersona`=?,`fechaInicio`=?,`fechaFinal`=?,`disponibilidad`=? WHERE idServicio=?',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad, parseInt(data.idServicio)])
@@ -101,7 +101,7 @@ function editServicio(req,res){
 
 //ELIMINAR SERVICIO POR MEDIO DEL ID
 function deleteServicio(req,res){
-    const data = req.query
+    const data = req.body
 
     dbconn.query('DELETE FROM `servicios` WHERE idServicio=?',[parseInt(data.idServicio)])
     .then(rows=>{
@@ -115,7 +115,7 @@ function deleteServicio(req,res){
 
 //ELIMINAR SOLICITUD POR MEDIO DEL ID
 function deleteSolicitud(req,res){
-    const data = req.query
+    const data = req.body
 
     dbconn.query('DELETE FROM `solicitudesreservacion` WHERE idSolicitud=?',[parseInt(data.idSolicitud)])
     .then(rows=>{
