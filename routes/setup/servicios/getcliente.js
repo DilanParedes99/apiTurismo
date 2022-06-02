@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 //obtiene los datos de los productos
 function getProductos(req, res){
-    dbconn.query('select * from `productos`')
+    dbconn.query('SELECT `productos`.`idProducto`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`costo`, `productos`.`precio`, `productos`.`stock`, `productos`.`idEmpresa` FROM `productos` INNER JOIN empresas ON `productos`.`idEmpresa` = empresas.idEmpresa')
     .then(rows=>{
         res.status(200).json({
             status:200,
@@ -61,10 +61,24 @@ dbconn.query('SELECT razonSocial FROM empresas')
     })
 }
 
+//obtiene el nombre de los servicios
+function getServicios(req, res){
+    dbconn.query('SELECT * FROM servicios')
+        .then(rows=>{
+            res.status(200).json({
+                status:200,
+                data:rows
+            })
+        })
+    }
+
+
+
 module.exports={
     getProductos,
     getEmpresas,
     getReservaciones,
     getSolicitudesReservacion,
-    getNameEmpresas
+    getNameEmpresas,
+    getServicios
 }

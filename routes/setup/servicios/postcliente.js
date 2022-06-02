@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt');
 
 //login 
 function login (req, res) {
-    const password = req.body['contrasena'];
-    const email = req.body['correo'];
+    const password = req.query['contrasena'];
+    const email = req.query['correo'];
     /* console.log("entra",password,email) */
 
     dbconn.query('select * from usuarios where correo=? and contrasena=?',[email,password])
@@ -31,7 +31,7 @@ function login (req, res) {
 //AGREGA UN NUEVO PRODUCTO
 function newProducto(req,res){
     const data = req.body
-    //console.log(data,parseInt(data.precio))
+    console.log(data,req)
 
     dbconn.query('INSERT INTO `productos`(`idEmpresa`, `nombre`, `descripcion`, `costo`, `precio`, `stock`) VALUES (?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.nombre,data.descripcion,data.costo,data.precio,data.stock])
     .then(rows=>{
@@ -58,7 +58,7 @@ function editProducto(req,res){
     })
 }
 
-//ELIMINA UN PRODUCTO POR MEDIO DE SU ID
+//>ELIMINA UN PRODUCTO POR MEDIO DE SU ID
 function deleteProducto(req,res){
     const data = req.body
 
@@ -74,9 +74,9 @@ function deleteProducto(req,res){
 //AGREGA NUEVO SERVICIO
 function newServicio(req,res){
     const data = req.body
-    //console.log(data)
+    console.log(data, req)
 
-    dbconn.query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad])
+    dbconn.query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseFloat(data.costoPersona),parseFloat(data.precioPersona),data.fechaInicio,data.fechaFinal,data.parseInt(disponibilidad)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'exitoso'})
@@ -127,6 +127,93 @@ function deleteSolicitud(req,res){
     })
 }
 
+//AGREGA UNA NUEVA EMPRESA
+function newEmpresa(req,res){
+    const data = req.body
+    console.log(data,parseInt(data.razonSocial))
+
+    dbconn.query('INSERT INTO `empresas`(`razonSocial`, `rfc`) VALUES (?,?)',[data.razonSocial,data.rfc])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(400).json({'mensaje':'error en los datos'})
+    })
+
+    
+}
+
+//EDITAR UNA EMPRESA POR MEDIO DE SU ID
+function editEmpresa(req,res){
+    const data = req.body
+    console.log(data)
+    dbconn.query('UPDATE `empresas` SET `razonSocial`=?,`rfc`=? WHERE idEmpresa=?',[data.razonSocial,data.rfc,parseInt(data.idEmpresa)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'Exito'})
+    }).catch(err=>{
+        console.log(err)
+        res.status(400).json({'msg':'error en los datos'})
+    })
+}
+
+//ELIMINA UNA EMPRESA POR MEDIO DE SU ID
+function deleteEmpresa(req,res){
+
+    const data = req.body
+
+    dbconn.query('DELETE FROM `empresas` WHERE idEmpresa=?',[parseInt(data.idEmpresa)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos o el producto no existe'})
+    })
+}
+
+//AGREGA UNA NUEVA RESERVACION
+function newReservacion(req,res){
+    const data = req.body
+    //console.log(data,parseInt(data.ticket))
+
+    dbconn.query('INSERT INTO `reservaciones`(`idSolicitud`, `ticket`) VALUES (?,?)',[parseInt(data.idSolicitud),data.ticket])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(400).json({'mensaje':'error en los datos'})
+    })
+
+    
+}
+
+//EDITAR UNA RESERVACION POR MEDIO DE SU ID
+function editReservacion(req,res){
+    const data = req.body
+    //console.log(data)
+    dbconn.query('UPDATE `reservaciones` SET `idSolicitud`=?,`ticket`=?`, WHERE idReservacion=?',[parseInt(data.idSolicitud),data.ticket,parseInt(data.idReservacion)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'Exito'})
+    }).catch(err=>{
+        console.log(err)
+        res.status(400).json({'msg':'error en los datos'})
+    })
+}
+
+//ELIMINA UNA RESERVACION POR MEDIO DE SU ID
+function deleteReservacion(req,res){
+
+    const data = req.body
+
+    dbconn.query('DELETE FROM `reservaciones` WHERE idReservacion=?',[parseInt(data.idReservacion)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exito'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos o el producto no existe'})
+    })
+}
 
 module.exports ={
     login,
@@ -136,5 +223,11 @@ module.exports ={
     newServicio,
     editServicio,
     deleteServicio,
-    deleteSolicitud
+    deleteSolicitud,
+    newEmpresa,
+    editEmpresa,
+    deleteEmpresa,
+    newReservacion,
+    editReservacion,
+    deleteReservacion
 }
