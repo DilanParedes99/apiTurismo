@@ -75,8 +75,8 @@ function deleteProducto(req,res){
 function newServicio(req,res){
     const data = req.body
     console.log(data, req)
-
-    dbconn.query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseFloat(data.costoPersona),parseFloat(data.precioPersona),data.fechaInicio,data.fechaFinal,data.parseInt(disponibilidad)])
+    dbconn
+    .query('INSERT INTO `servicios`( `idEmpresa`, `estado`, `nombre`, `descripcion`, `costoPersona`, `precioPersona`, `fechaInicio`, `fechaFinal`, `disponibilidad`) VALUES (?,?,?,?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseFloat(data.costoPersona),parseFloat(data.precioPersona),data.fechaInicio,data.fechaFinal,parseInt(data.disponibilidad)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'exitoso'})
@@ -90,7 +90,7 @@ function editServicio(req,res){
     const data = req.body
     //console.log(data)
 
-    dbconn.query('UPDATE `servicios` SET `idEmpresa`=?,`estado`=?,`nombre`=?,`descripcion`=?,`costoPersona`=?,`precioPersona`=?,`fechaInicio`=?,`fechaFinal`=?,`disponibilidad`=? WHERE idServicio=?',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseInt(data.costoPersona),parseInt(data.precioPersona),data.fechaInicio,data.fechaFinal,data.disponibilidad, parseInt(data.idServicio)])
+    dbconn.query('UPDATE `servicios` SET `idEmpresa`=?,`estado`=?,`nombre`=?,`descripcion`=?,`costoPersona`=?,`precioPersona`=?,`fechaInicio`=?,`fechaFinal`=?,`disponibilidad`=? WHERE idServicio=?',[parseInt(data.idEmpresa),data.estado,data.nombre,data.descripcion,parseFloat(data.costoPersona),parseFloat(data.precioPersona),data.fechaInicio,data.fechaFinal,parseInt(data.disponibilidad), parseInt(data.idServicio)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'exitoso'})

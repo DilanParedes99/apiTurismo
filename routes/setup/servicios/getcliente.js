@@ -52,7 +52,7 @@ function getSolicitudesReservacion(req,res) {
 
 //obtiene el nombre de las empresas
 function getNameEmpresas(req, res){
-dbconn.query('SELECT razonSocial FROM empresas')
+dbconn.query('SELECT idEmpresa, razonSocial FROM empresas')
     .then(rows=>{
         res.status(200).json({
             status:200,
