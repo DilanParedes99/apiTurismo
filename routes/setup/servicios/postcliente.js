@@ -33,7 +33,7 @@ function newProducto(req,res){
     const data = req.body
     console.log(data,req)
 
-    dbconn.query('INSERT INTO `productos`(`idEmpresa`, `nombre`, `descripcion`, `costo`, `precio`, `stock`) VALUES (?,?,?,?,?,?)',[parseInt(data.idEmpresa),data.nombre,data.descripcion,data.costo,data.precio,data.stock])
+    dbconn.query('INSERT INTO `productos`(`idServicio`, `nombre`, `descripcion`, `costo`, `precio`, `stock`) VALUES (?,?,?,?,?,?)',[parseInt(data.idServicio),data.nombre,data.descripcion,data.costo,data.precio,data.stock])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'exito'})
@@ -48,7 +48,7 @@ function newProducto(req,res){
 function editProducto(req,res){
     const data = req.body
     //console.log(data)
-    dbconn.query('UPDATE `productos` SET `idEmpresa`=?,`nombre`=?,`descripcion`=?,`costo`=?,`precio`=?,`stock`=? WHERE idProducto=?',[parseInt(data.idEmpresa),data.nombre,data.descripcion,data.costo,data.precio,data.stock,parseInt(data.idProducto)])
+    dbconn.query('UPDATE `productos` SET `idServicio`=?,`nombre`=?,`descripcion`=?,`costo`=?,`precio`=?,`stock`=? WHERE idProducto=?',[parseInt(data.idServicio),data.nombre,data.descripcion,data.costo,data.precio,data.stock,parseInt(data.idProducto)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'Exito'})
