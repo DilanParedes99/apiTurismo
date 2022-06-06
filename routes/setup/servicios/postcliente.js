@@ -174,9 +174,9 @@ function deleteEmpresa(req,res){
 //AGREGA UNA NUEVA RESERVACION
 function newReservacion(req,res){
     const data = req.body
-    //console.log(data,data.ticket)
+    console.log(data)
 
-    dbconn.query('INSERT INTO `reservaciones`(`ticket`) VALUES (?)',[data.ticket])
+    dbconn.query('INSERT INTO `reservaciones`(`tipoPago`,`idServicio`) VALUES (?,?)',[data.tipoPago,data.idServicio])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'exito'})
@@ -192,9 +192,9 @@ function editReservacion(req,res){
     const data = req.body
     console.log(data)
 
-    dbconn.query('UPDATE `reservaciones` SET `ticket`=? WHERE idReservacion=?',[data.ticket,parseInt(data.idReservacion)])
+    dbconn.query('UPDATE `reservaciones` SET `tipoPago`=?,`idServicio`=? WHERE idReservacion=?',[data.tipoPago,data.idServicio,parseInt(data.idReservacion)])
     .then(rows=>{
-        console.log(rows)
+        //console.log(rows)
         res.status(200).json({'msg':'Exito'})
     }).catch(err=>{
         console.log(err)
