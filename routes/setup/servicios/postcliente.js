@@ -174,14 +174,14 @@ function deleteEmpresa(req,res){
 //AGREGA UNA NUEVA RESERVACION
 function newReservacion(req,res){
     const data = req.body
-    //console.log(data,parseInt(data.ticket))
+    //console.log(data,data.ticket)
 
-    dbconn.query('INSERT INTO `reservaciones`(`idSolicitud`, `ticket`) VALUES (?,?)',[parseInt(data.idSolicitud),data.ticket])
+    dbconn.query('INSERT INTO `reservaciones`(`ticket`) VALUES (?)',[data.ticket])
     .then(rows=>{
-        console.log(rows)
+        //console.log(rows)
         res.status(200).json({'msg':'exito'})
     }).catch(err=>{
-        res.status(400).json({'mensaje':'error en los datos'})
+        res.status(400).json({'mensaje':'error en los datos',error:err})
     })
 
     
@@ -190,8 +190,9 @@ function newReservacion(req,res){
 //EDITAR UNA RESERVACION POR MEDIO DE SU ID
 function editReservacion(req,res){
     const data = req.body
-    //console.log(data)
-    dbconn.query('UPDATE `reservaciones` SET `idSolicitud`=?,`ticket`=?`, WHERE idReservacion=?',[parseInt(data.idSolicitud),data.ticket,parseInt(data.idReservacion)])
+    console.log(data)
+
+    dbconn.query('UPDATE `reservaciones` SET `ticket`=? WHERE idReservacion=?',[data.ticket,parseInt(data.idReservacion)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'Exito'})
@@ -215,6 +216,7 @@ function deleteReservacion(req,res){
     })
 }
 
+
 module.exports ={
     login,
     newProducto,
@@ -227,6 +229,7 @@ module.exports ={
     newEmpresa,
     editEmpresa,
     deleteEmpresa,
+    
     newReservacion,
     editReservacion,
     deleteReservacion

@@ -44,6 +44,12 @@ module.exports.setup = (app,express) =>{
     app.post('/editServicio',controlerPost.editServicio)
     app.post('/deleteServicio',controlerPost.deleteServicio)
 
+    app.post('/newReservacion',controlerPost.newReservacion)
+    app.post('/editReservacion',controlerPost.editReservacion)
+    app.post('/deleteReservacion',controlerPost.deleteReservacion)
+
+
+    app.post('/getServiciosId', controlerGet.getServiciosId)
     
 
     app.post('/deleteSolicitud',controlerPost.deleteSolicitud)
@@ -51,7 +57,8 @@ module.exports.setup = (app,express) =>{
     //gets
     app.get('/getProductos', controlerGet.getProductos)
     app.get('/getServicios', controlerGet.getServicios)
-    app.get('/getServiciosId', controlerGet.getServiciosId)
+
+
     app.get('/getEmpresas', controlerGet.getEmpresas)
     app.get('/getReservaciones', controlerGet.getReservaciones)
     app.get('/getSolicitudesReservacion', controlerGet.getSolicitudesReservacion)
