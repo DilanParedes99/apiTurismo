@@ -103,7 +103,7 @@ function editServicio(req,res){
 function deleteServicio(req,res){
     const data = req.body
 
-    dbconn.query('DELETE FROM `servicios` WHERE idServicio=?',[parseInt(data.idServicio)])
+    dbconn.query('DELETE FROM `servicios` WHERE idServicio=? AND idServicio NOT IN (SELECT idServicio FROM productos)',[parseInt(data.idServicio)])
     .then(rows=>{
         console.log(rows)
 
@@ -130,7 +130,7 @@ function deleteSolicitud(req,res){
 //AGREGA UNA NUEVA EMPRESA
 function newEmpresa(req,res){
     const data = req.body
-    console.log(data,parseInt(data.razonSocial))
+    //console.log(data,parseInt(data.razonSocial))
 
     dbconn.query('INSERT INTO `empresas`(`razonSocial`, `rfc`) VALUES (?,?)',[data.razonSocial,data.rfc])
     .then(rows=>{
@@ -146,7 +146,7 @@ function newEmpresa(req,res){
 //EDITAR UNA EMPRESA POR MEDIO DE SU ID
 function editEmpresa(req,res){
     const data = req.body
-    console.log(data)
+    //console.log(data)
     dbconn.query('UPDATE `empresas` SET `razonSocial`=?,`rfc`=? WHERE idEmpresa=?',[data.razonSocial,data.rfc,parseInt(data.idEmpresa)])
     .then(rows=>{
         console.log(rows)
@@ -162,7 +162,7 @@ function deleteEmpresa(req,res){
 
     const data = req.body
 
-    dbconn.query('DELETE FROM `empresas` WHERE idEmpresa=?',[parseInt(data.idEmpresa)])
+    dbconn.query('DELETE FROM `empresas` WHERE idEmpresa=? AND idEmpresa NOT IN (SELECT idEmpresa FROM servicios)',[parseInt(data.idEmpresa)])
     .then(rows=>{
         console.log(rows)
         res.status(200).json({'msg':'exito'})

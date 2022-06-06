@@ -82,7 +82,7 @@ function getServicios(req, res){
         })
     }
 
-
+//Obteniendo todos los productos para el admin
 function getServiciosAll(req, res){
         dbconn.query('SELECT * FROM servicios')
             .then(rows=>{
@@ -94,8 +94,8 @@ function getServiciosAll(req, res){
         }
 
 function getServiciosId(req, res){
-    const id = req.query['id'];
-    console.log(req.query)
+    const id = req.body['id'];
+    console.log(req.body);
     dbconn.query('SELECT nombre,descripcion,estado,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios where idServicio=?',[id])
         .then(rows=>{
             res.status(200).json({

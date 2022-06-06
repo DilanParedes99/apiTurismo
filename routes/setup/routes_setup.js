@@ -44,6 +44,10 @@ module.exports.setup = (app,express) =>{
     app.post('/editServicio',controlerPost.editServicio)
     app.post('/deleteServicio',controlerPost.deleteServicio)
 
+    app.post('/newEmpresa',controlerPost.newEmpresa)
+    app.post('/editEmpresa',controlerPost.editEmpresa)
+    app.post('/deleteEmpresa',controlerPost.deleteEmpresa)
+
     app.post('/newReservacion',controlerPost.newReservacion)
     app.post('/editReservacion',controlerPost.editReservacion)
     app.post('/deleteReservacion',controlerPost.deleteReservacion)
