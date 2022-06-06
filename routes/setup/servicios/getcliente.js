@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 //obtiene los datos de los productos
 function getProductos(req, res){
-    dbconn.query('SELECT `productos`.`idProducto`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`costo`, `productos`.`precio`, `productos`.`stock`, `productos`.`idEmpresa` FROM `productos` INNER JOIN empresas ON `productos`.`idEmpresa` = empresas.idEmpresa')
+    dbconn.query('SELECT `productos`.`idProducto`, `productos`.`nombre`, `productos`.`descripcion`, `productos`.`costo`, `productos`.`precio`, `productos`.`stock`, `productos`.`idServicio` FROM `productos`')
     .then(rows=>{
         res.status(200).json({
             status:200,
@@ -61,9 +61,8 @@ dbconn.query('SELECT idEmpresa, razonSocial FROM empresas')
     })
 }
 
-//obtiene el nombre de los servicios
-function getServicios(req, res){
-    dbconn.query('SELECT nombre,descripcion,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios')
+function getNameServicios(req, res){
+    dbconn.query('SELECT idServicio, nombre FROM servicios')
         .then(rows=>{
             res.status(200).json({
                 status:200,
@@ -72,10 +71,32 @@ function getServicios(req, res){
         })
     }
 
+//obtiene el nombre de los servicios
+function getServicios(req, res){
+    dbconn.query('SELECT nombre,descripcion,estado,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios')
+        .then(rows=>{
+            res.status(200).json({
+                status:200,
+                data:rows
+            })
+        })
+    }
+
+
+function getServiciosAll(req, res){
+        dbconn.query('SELECT * FROM servicios')
+            .then(rows=>{
+                res.status(200).json({
+                    status:200,
+                    data:rows
+                })
+            })
+        }
+
 function getServiciosId(req, res){
     const id = req.query['id'];
     console.log(req.query)
-    dbconn.query('SELECT nombre,descripcion,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios where idServicio=?',[id])
+    dbconn.query('SELECT nombre,descripcion,estado,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios where idServicio=?',[id])
         .then(rows=>{
             res.status(200).json({
                 status:200,
@@ -92,6 +113,8 @@ module.exports={
     getReservaciones,
     getSolicitudesReservacion,
     getNameEmpresas,
+    getNameServicios,
     getServicios,
+    getServiciosAll,
     getServiciosId
 }

@@ -57,12 +57,14 @@ module.exports.setup = (app,express) =>{
     //gets
     app.get('/getProductos', controlerGet.getProductos)
     app.get('/getServicios', controlerGet.getServicios)
+    app.get('/getServiciosAll', controlerGet.getServiciosAll)
 
 
     app.get('/getEmpresas', controlerGet.getEmpresas)
     app.get('/getReservaciones', controlerGet.getReservaciones)
     app.get('/getSolicitudesReservacion', controlerGet.getSolicitudesReservacion)
     app.get('/getNameEmpresas', controlerGet.getNameEmpresas)
+    app.get('/getNameServicios', controlerGet.getNameServicios)
     
 
     return app
