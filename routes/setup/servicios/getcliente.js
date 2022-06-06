@@ -63,7 +63,7 @@ dbconn.query('SELECT idEmpresa, razonSocial FROM empresas')
 
 //obtiene el nombre de los servicios
 function getServicios(req, res){
-    dbconn.query('SELECT * FROM servicios')
+    dbconn.query('SELECT nombre,descripcion,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios')
         .then(rows=>{
             res.status(200).json({
                 status:200,
@@ -71,6 +71,17 @@ function getServicios(req, res){
             })
         })
     }
+
+    function getServiciosId(req, res){
+        const id = req.query['id'];
+        dbconn.query('SELECT nombre,descripcion,costoPersona,precioPersona,fechaInicio,fechaFinal,disponibilidad FROM servicios where idServicio=?',[id])
+            .then(rows=>{
+                res.status(200).json({
+                    status:200,
+                    data:rows
+                })
+            })
+        }
 
 
 
@@ -80,5 +91,6 @@ module.exports={
     getReservaciones,
     getSolicitudesReservacion,
     getNameEmpresas,
-    getServicios
+    getServicios,
+    getServiciosId
 }
