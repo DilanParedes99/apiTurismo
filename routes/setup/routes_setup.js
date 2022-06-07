@@ -38,7 +38,6 @@ module.exports.setup = (app,express) =>{
     app.post('/newProducto',controlerPost.newProducto)
     app.post('/editProducto',controlerPost.editProducto)
     app.post('/deleteProducto',controlerPost.deleteProducto)
-
     
     app.post('/newServicio',controlerPost.newServicio)
     app.post('/editServicio',controlerPost.editServicio)
@@ -51,6 +50,10 @@ module.exports.setup = (app,express) =>{
     app.post('/newReservacion',controlerPost.newReservacion)
     app.post('/editReservacion',controlerPost.editReservacion)
     app.post('/deleteReservacion',controlerPost.deleteReservacion)
+
+    app.post('/newUsuario',controlerPost.newUsuario)
+    app.post('/editUsuario',controlerPost.editUsuario)
+    app.post('/deleteUsuario',controlerPost.deleteUsuario)
 
 
     app.post('/getServiciosId', controlerGet.getServiciosId)
