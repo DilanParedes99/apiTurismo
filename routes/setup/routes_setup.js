@@ -63,6 +63,7 @@ module.exports.setup = (app,express) =>{
 
     //gets
     app.get('/getProductos', controlerGet.getProductos)
+    app.get('/getUsuarios', controlerGet.getUsuarios)
     app.get('/getServicios', controlerGet.getServicios)
     app.get('/getServiciosAll', controlerGet.getServiciosAll)
 
