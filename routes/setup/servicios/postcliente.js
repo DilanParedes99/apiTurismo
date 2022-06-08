@@ -104,13 +104,23 @@ function actualizarServicio(req,res){
     const data = req.body
     //console.log(data)
 
-    dbconn.query('UPDATE `servicios` SET `disponibilidad`=? WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])
-    .then(rows=>{
-        console.log(rows)
-        res.status(200).json({'msg':'exitoso'})
-    }).catch(err=>{
-        res.status(400).json({'msg':'error en los datos'})
-    })
+    if(parseInt(data.disponibilidad)==0){
+        dbconn.query('UPDATE `servicios` SET `disponibilidad`=?, `estado`="No Disponible" WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])        .then(rows=>{
+            console.log(rows)
+            res.status(200).json({'msg':'exitoso'})
+        }).catch(err=>{
+            res.status(400).json({'msg':'error en los datos'})
+        })
+    }
+    else{
+        dbconn.query('UPDATE `servicios` SET `disponibilidad`=? WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])
+        .then(rows=>{
+            console.log(rows)
+            res.status(200).json({'msg':'exitoso'})
+        }).catch(err=>{
+            res.status(400).json({'msg':'error en los datos'})
+        })
+    }
 }
 
 //ELIMINAR SERVICIO POR MEDIO DEL ID
@@ -206,7 +216,7 @@ function editReservacion(req,res){
     const data = req.body
     console.log(data)
 
-    dbconn.query('UPDATE `reservaciones` SET `tipoPago`=?,`idServicio`=? WHERE idReservacion=?',[data.tipoPago,data.idServicio,parseInt(data.idReservacion)])
+    dbconn.query('UPDATE `reservaciones` SET `idServicio`=?,`nombreCompleto`=?,`correoCliente`=?,`telefono`=?,`numeroReservaciones`=?,`total`=? WHERE idReservacion=?',[parseInt(data.idServicio),data.nombreCompleto,data.correoCliente,data.telefono,parseInt(data.numeroReservaciones),parseFloat(data.total),parseInt(data.idReservacion)])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'Exito'})
