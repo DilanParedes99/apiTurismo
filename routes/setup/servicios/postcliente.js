@@ -99,6 +99,20 @@ function editServicio(req,res){
     })
 }
 
+// ACTUALIZAR UN SERVICIO DESPUÉS DE UNA RESERVACIÓN POR MEDIO DEL ID
+function actualizarServicio(req,res){
+    const data = req.body
+    //console.log(data)
+
+    dbconn.query('UPDATE `servicios` SET `disponibilidad`=? WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])
+    .then(rows=>{
+        console.log(rows)
+        res.status(200).json({'msg':'exitoso'})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos'})
+    })
+}
+
 //ELIMINAR SERVICIO POR MEDIO DEL ID
 function deleteServicio(req,res){
     const data = req.body
@@ -176,7 +190,7 @@ function newReservacion(req,res){
     const data = req.body
     console.log(data)
 
-    dbconn.query('INSERT INTO `reservaciones`(`tipoPago`,`idServicio`) VALUES (?,?)',[data.tipoPago,data.idServicio])
+    dbconn.query('INSERT INTO `reservaciones`(`idServicio`,`nombreCompleto`,`correoCliente`,`telefono`,`numeroReservaciones`,`total`) VALUES (?,?,?,?,?,?)',[parseInt(data.idServicio),data.nombreCompleto,data.correoCliente,data.telefono,parseInt(data.numeroReservaciones),parseFloat(data.total)])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'exito'})
@@ -218,10 +232,9 @@ function deleteReservacion(req,res){
 
 //NUEVO USUARIO
 function newUsuario(req,res){
-    const data = req.query
-    //console.log(data)
-
-    dbconn.query('INSERT INTO `usuarios`(`nombreUsuario`, `primerApellido`, `segundoApellido`, `correo`, `tipo`, `contrasena`) VALUES (?,?,?,?,?,?)',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.tipo,data.contrasena])
+    const data = req.body
+    console.log(data)
+    dbconn.query('INSERT INTO `usuarios`(`nombreUsuario`, `primerApellido`, `segundoApellido`, `correo`, `contrasena`, `tipo`, `idEmpresa`) VALUES (?,?,?,?,?,?,?)',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.contrasena,data.tipo,parseInt(data.idEmpresa)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
     }).catch(err=>{
@@ -232,10 +245,9 @@ function newUsuario(req,res){
 
 //EDITA USUARIO por ID
 function editUsuario(req,res){
-    const data = req.query
+    const data = req.body
     console.log(data)
-
-    dbconn.query('UPDATE `usuarios` SET `nombreUsuario`=?,`primerApellido`=?,`segundoApellido`=?,`correo`=?,`tipo`=?,`contrasena`=? WHERE `idUsuario`=?',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.tipo,data.contrasena,parseInt(data.idUsuario)])
+    dbconn.query('UPDATE `usuarios` SET `nombreUsuario`=?,`primerApellido`=?,`segundoApellido`=?,`correo`=?,`contrasena`=?,`tipo`=?, `idEmpresa`=? WHERE `idUsuario`=?',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.contrasena,data.tipo,parseInt(data.idEmpresa),parseInt(data.idUsuario)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
     }).catch(err=>{
@@ -245,9 +257,8 @@ function editUsuario(req,res){
 
 //ELIMINAR USUARIO por ID
 function deleteUsuario(req,res){
-    const data = req.query
+    const data = req.body
     console.log(data)
-
     dbconn.query('DELETE FROM `usuarios` WHERE idUsuario =?',[parseInt(data.idUsuario)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
@@ -273,5 +284,6 @@ module.exports ={
     deleteReservacion,
     newUsuario,
     editUsuario,
-    deleteUsuario
+    deleteUsuario,
+    actualizarServicio
 }
