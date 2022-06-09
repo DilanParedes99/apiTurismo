@@ -44,6 +44,7 @@ module.exports.setup = (app,express) =>{
     app.post('/getServicios',controlerPost.getServicios)
     app.post('/editServicio',controlerPost.editServicio)
     app.post('/deleteServicio',controlerPost.deleteServicio)
+    app.post('/actualizarServicio',controlerPost.actualizarServicio)
 
     app.post('/newEmpresa',controlerPost.newEmpresa)
     app.post('/editEmpresa',controlerPost.editEmpresa)
@@ -66,6 +67,7 @@ module.exports.setup = (app,express) =>{
 
     //gets
     app.get('/getProductos', controlerGet.getProductos)
+    app.get('/getUsuarios', controlerGet.getUsuarios)
     app.get('/getServicios', controlerGet.getServicios)
     app.get('/getServiciosAll', controlerGet.getServiciosAll)
 

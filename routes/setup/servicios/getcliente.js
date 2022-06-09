@@ -106,6 +106,18 @@ function getServiciosId(req, res){
     }
 
 
+//Obteniendo todos los productos para el admin
+function getUsuarios(req, res){
+    dbconn.query('SELECT * FROM usuarios')
+        .then(rows=>{
+            res.status(200).json({
+                status:200,
+                data:rows
+            })
+        })
+    }
+
+
 
 module.exports={
     getProductos,
@@ -116,5 +128,6 @@ module.exports={
     getNameServicios,
     getServicios,
     getServiciosAll,
-    getServiciosId
+    getServiciosId,
+    getUsuarios
 }

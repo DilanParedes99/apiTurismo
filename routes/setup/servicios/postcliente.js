@@ -6,11 +6,11 @@ const bcrypt = require('bcrypt');
 
 //login 
 function login (req, res) {
-    const password = req.query['contrasena'];
-    const email = req.query['correo'];
+    const password = req.body['contrasena'];
+    const email = req.body['correo'];
     /* console.log("entra",password,email) */
 
-    dbconn.query('select * from usuarios where correo=? and contrasena=?',[email,password])
+    dbconn.query('select tipo, idEmpresa from usuarios where correo=? and contrasena=?',[email,password])
     .then(rows=>{
         console.log(rows)
         if(rows.length==0){
@@ -126,6 +126,30 @@ function editServicio(req,res){
     })
 }
 
+// ACTUALIZAR UN SERVICIO DESPUÉS DE UNA RESERVACIÓN POR MEDIO DEL ID
+function actualizarServicio(req,res){
+    const data = req.body
+    //console.log(data)
+
+    if(parseInt(data.disponibilidad)==0){
+        dbconn.query('UPDATE `servicios` SET `disponibilidad`=?, `estado`="No Disponible" WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])        .then(rows=>{
+            console.log(rows)
+            res.status(200).json({'msg':'exitoso'})
+        }).catch(err=>{
+            res.status(400).json({'msg':'error en los datos'})
+        })
+    }
+    else{
+        dbconn.query('UPDATE `servicios` SET `disponibilidad`=? WHERE idServicio=?',[parseInt(data.disponibilidad),parseInt(data.idServicio)])
+        .then(rows=>{
+            console.log(rows)
+            res.status(200).json({'msg':'exitoso'})
+        }).catch(err=>{
+            res.status(400).json({'msg':'error en los datos'})
+        })
+    }
+}
+
 //ELIMINAR SERVICIO POR MEDIO DEL ID
 function deleteServicio(req,res){
     const data = req.body
@@ -203,7 +227,7 @@ function newReservacion(req,res){
     const data = req.body
     console.log(data)
 
-    dbconn.query('INSERT INTO `reservaciones`(`tipoPago`,`idServicio`) VALUES (?,?)',[data.tipoPago,data.idServicio])
+    dbconn.query('INSERT INTO `reservaciones`(`idServicio`,`nombreCompleto`,`correoCliente`,`telefono`,`numeroReservaciones`,`total`) VALUES (?,?,?,?,?,?)',[parseInt(data.idServicio),data.nombreCompleto,data.correoCliente,data.telefono,parseInt(data.numeroReservaciones),parseFloat(data.total)])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'exito'})
@@ -235,7 +259,7 @@ function editReservacion(req,res){
     const data = req.body
     console.log(data)
 
-    dbconn.query('UPDATE `reservaciones` SET `tipoPago`=?,`idServicio`=? WHERE idReservacion=?',[data.tipoPago,data.idServicio,parseInt(data.idReservacion)])
+    dbconn.query('UPDATE `reservaciones` SET `idServicio`=?,`nombreCompleto`=?,`correoCliente`=?,`telefono`=?,`numeroReservaciones`=?,`total`=? WHERE idReservacion=?',[parseInt(data.idServicio),data.nombreCompleto,data.correoCliente,data.telefono,parseInt(data.numeroReservaciones),parseFloat(data.total),parseInt(data.idReservacion)])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'Exito'})
@@ -261,10 +285,9 @@ function deleteReservacion(req,res){
 
 //NUEVO USUARIO
 function newUsuario(req,res){
-    const data = req.query
-    //console.log(data)
-
-    dbconn.query('INSERT INTO `usuarios`(`nombreUsuario`, `primerApellido`, `segundoApellido`, `correo`, `tipo`, `contrasena`) VALUES (?,?,?,?,?,?)',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.tipo,data.contrasena])
+    const data = req.body
+    console.log(data)
+    dbconn.query('INSERT INTO `usuarios`(`nombreUsuario`, `primerApellido`, `segundoApellido`, `correo`, `contrasena`, `tipo`, `idEmpresa`) VALUES (?,?,?,?,?,?,?)',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.contrasena,data.tipo,parseInt(data.idEmpresa)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
     }).catch(err=>{
@@ -275,10 +298,9 @@ function newUsuario(req,res){
 
 //EDITA USUARIO por ID
 function editUsuario(req,res){
-    const data = req.query
+    const data = req.body
     console.log(data)
-
-    dbconn.query('UPDATE `usuarios` SET `nombreUsuario`=?,`primerApellido`=?,`segundoApellido`=?,`correo`=?,`tipo`=?,`contrasena`=? WHERE `idUsuario`=?',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.tipo,data.contrasena,parseInt(data.idUsuario)])
+    dbconn.query('UPDATE `usuarios` SET `nombreUsuario`=?,`primerApellido`=?,`segundoApellido`=?,`correo`=?,`contrasena`=?,`tipo`=?, `idEmpresa`=? WHERE `idUsuario`=?',[data.nombreUsuario,data.primerApellido,data.segundoApellido,data.correo,data.contrasena,data.tipo,parseInt(data.idEmpresa),parseInt(data.idUsuario)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
     }).catch(err=>{
@@ -288,9 +310,8 @@ function editUsuario(req,res){
 
 //ELIMINAR USUARIO por ID
 function deleteUsuario(req,res){
-    const data = req.query
+    const data = req.body
     console.log(data)
-
     dbconn.query('DELETE FROM `usuarios` WHERE idUsuario =?',[parseInt(data.idUsuario)])
     .then(rows=>{
         res.status(200).json({'msg':'exito','data':rows})
@@ -317,7 +338,11 @@ module.exports ={
     newUsuario,
     editUsuario,
     deleteUsuario,
+<<<<<<< HEAD
     getServicios,
     getProductos,
     getReservaciones
+=======
+    actualizarServicio
+>>>>>>> 9bcfc34f00eefaadeba71f3fa73cd017578b1a61
 }
