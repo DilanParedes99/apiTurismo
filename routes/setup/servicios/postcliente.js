@@ -47,7 +47,6 @@ function newProducto(req,res){
 //OBTENER PRODUCTOS POR MEDIO DEL ID DE LA EMPRESA
 function getProductos(req,res){
     const data = req.body
-    
     dbconn.query('select productos.idProducto,productos.idServicio,productos.nombre,productos.descripcion,productos.costo,productos.precio,productos.stock from productos INNER JOIN servicios on productos.idServicio = servicios.idServicio INNER JOIN empresas on servicios.idEmpresa = empresas.idEmpresa WHERE empresas.idEmpresa=?',[data.idEmpresa])
     .then(rows=>{
         res.status(200).json({'msg':'exitoso','data':rows})
@@ -99,10 +98,10 @@ function newServicio(req,res){
 
 //OBTIENE LOS SERVICIOS POR MEDIO DEL ID DE EMPRESA
 function getServicios(req,res){
-    const data = req.body
-    //console.log(data, req)
+    const id = req.body['idEmpresa'];
+    console.log(req.body)
     dbconn
-    .query('select servicios.idServicio,servicios.idEmpresa,servicios.estado,servicios.nombre,servicios.descripcion,servicios.costoPersona,servicios.precioPersona,servicios.fechaInicio,servicios.fechaFinal,servicios.disponibilidad from productos INNER JOIN servicios on productos.idServicio = servicios.idServicio INNER JOIN empresas on servicios.idEmpresa = empresas.idEmpresa WHERE empresas.idEmpresa=?',[data.idEmpresa])
+    .query('select * from servicios WHERE idEmpresa=?',[id])
     .then(rows=>{
         //console.log(rows)
         res.status(200).json({'msg':'exitoso','data':rows})
@@ -111,6 +110,19 @@ function getServicios(req,res){
     })
 
 }
+
+function getNameServicios(req, res){
+    //const data = req.body
+    const id = req.body['idEmpresa'];
+    console.log(req.body);
+    dbconn.query('SELECT idServicio, nombre FROM servicios WHERE idEmpresa=?',[id])
+        .then(rows=>{
+            res.status(200).json({
+                status:200,
+                data:rows
+            })
+        })
+    }
 
 //EDITA UN SERVICIO POR MEDIO DEL ID
 function editServicio(req,res){
@@ -338,11 +350,9 @@ module.exports ={
     newUsuario,
     editUsuario,
     deleteUsuario,
-<<<<<<< HEAD
     getServicios,
     getProductos,
-    getReservaciones
-=======
-    actualizarServicio
->>>>>>> 9bcfc34f00eefaadeba71f3fa73cd017578b1a61
+    getReservaciones,
+    actualizarServicio,
+    getNameServicios
 }

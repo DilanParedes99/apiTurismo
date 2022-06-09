@@ -42,6 +42,7 @@ module.exports.setup = (app,express) =>{
     
     app.post('/newServicio',controlerPost.newServicio)
     app.post('/getServicios',controlerPost.getServicios)
+    app.post('/getNameServicios',controlerPost.getNameServicios)
     app.post('/editServicio',controlerPost.editServicio)
     app.post('/deleteServicio',controlerPost.deleteServicio)
     app.post('/actualizarServicio',controlerPost.actualizarServicio)

@@ -6,7 +6,7 @@
     "db":{
         "host":"127.0.0.1",
         "db":"turismo",
-        "user":"joca",
-        "password":"6095"
+        "user":"root",
+        "password":""
     }
 }
