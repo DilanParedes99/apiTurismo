@@ -6,11 +6,11 @@ const bcrypt = require('bcrypt');
 
 //login 
 function login (req, res) {
-    const password = req.query['contrasena'];
-    const email = req.query['correo'];
+    const password = req.body['contrasena'];
+    const email = req.body['correo'];
     /* console.log("entra",password,email) */
 
-    dbconn.query('select * from usuarios where correo=? and contrasena=?',[email,password])
+    dbconn.query('select tipo, idEmpresa from usuarios where correo=? and contrasena=?',[email,password])
     .then(rows=>{
         console.log(rows)
         if(rows.length==0){
