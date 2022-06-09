@@ -44,6 +44,18 @@ function newProducto(req,res){
     
 }
 
+//OBTENER PRODUCTOS POR MEDIO DEL ID DE LA EMPRESA
+function getProductos(req,res){
+    const data = req.body
+    
+    dbconn.query('select productos.idProducto,productos.idServicio,productos.nombre,productos.descripcion,productos.costo,productos.precio,productos.stock from productos INNER JOIN servicios on productos.idServicio = servicios.idServicio INNER JOIN empresas on servicios.idEmpresa = empresas.idEmpresa WHERE empresas.idEmpresa=?',[data.idEmpresa])
+    .then(rows=>{
+        res.status(200).json({'msg':'exitoso','data':rows})
+    }).catch(err=>{
+        res.status(400)
+    })
+}
+
 //EDITAR UN PRODUCTO POR MEDIO DE SU ID
 function editProducto(req,res){
     const data = req.body
@@ -83,6 +95,21 @@ function newServicio(req,res){
     }).catch(err=>{
         res.status(400).json({'msg':'error en los datos'})
     })
+}
+
+//OBTIENE LOS SERVICIOS POR MEDIO DEL ID DE EMPRESA
+function getServicios(req,res){
+    const data = req.body
+    //console.log(data, req)
+    dbconn
+    .query('select servicios.idServicio,servicios.idEmpresa,servicios.estado,servicios.nombre,servicios.descripcion,servicios.costoPersona,servicios.precioPersona,servicios.fechaInicio,servicios.fechaFinal,servicios.disponibilidad from productos INNER JOIN servicios on productos.idServicio = servicios.idServicio INNER JOIN empresas on servicios.idEmpresa = empresas.idEmpresa WHERE empresas.idEmpresa=?',[data.idEmpresa])
+    .then(rows=>{
+        //console.log(rows)
+        res.status(200).json({'msg':'exitoso','data':rows})
+    }).catch(err=>{
+        res.status(400).json({'msg':'error en los datos'})
+    })
+
 }
 
 //EDITA UN SERVICIO POR MEDIO DEL ID
@@ -187,6 +214,22 @@ function newReservacion(req,res){
     
 }
 
+//OBTNER RESERVACIONES POR MEDIO DE IDEMPRESA
+function getReservaciones(req,res){
+    const data = req.body
+    console.log(data)
+
+    dbconn.query('select reservaciones.idReservacion,reservaciones.idServicio,reservaciones.nombreCompleto,reservaciones.correoCliente,reservaciones.telefono,reservaciones.numeroReservaciones,reservaciones.total from reservaciones INNER JOIN servicios on reservaciones.idServicio = servicios.idServicio INNER JOIN empresas on servicios.idEmpresa = empresas.idEmpresa WHERE empresas.idEmpresa=?',[data.idEmpresa])
+    .then(rows=>{
+        //console.log(rows)
+        res.status(200).json({'msg':'exito','data':rows})
+    }).catch(err=>{
+        res.status(400).json({'mensaje':'error en los datos',error:err})
+    })
+
+    
+}
+
 //EDITAR UNA RESERVACION POR MEDIO DE SU ID
 function editReservacion(req,res){
     const data = req.body
@@ -273,5 +316,8 @@ module.exports ={
     deleteReservacion,
     newUsuario,
     editUsuario,
-    deleteUsuario
+    deleteUsuario,
+    getServicios,
+    getProductos,
+    getReservaciones
 }
